@@ -12,74 +12,44 @@
 
 #include "main.hpp"
 
-class Contact
-{
-	public:
-		Contact();
-		Contact(
-			std::string first_name_ = "",
-			std::string last_name_ = "",
-			std::string nickname_ = "",
-			std::string phone_ = "",
-			std::string secret_ = ""
-        );
-		~Contact();
-        void add_first_name(std::string first_name_);
-        void add_last_name(std::string last_name_);
-        void add_nickname(std::string nickname_);
-        void add_phone(std::string phone_);
-        void add_secret(std::string secret_);
-	private:
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string phone;
-		std::string secret;
-};
-
 Contact::Contact()
 {
-	first_name = "";
-	last_name = "";
-	nickname = "";
-	phone = "";
-	secret = "";
+	_first_name = "";
+	_last_name = "";
+	_nickname = "";
+	_phone = "";
+	_secret = "";
 }
 
 Contact::Contact(
-    std::string first_name_,
-    std::string last_name_,
-    std::string nickname_,
-    std::string phone_,
-    std::string secret_)
+    std::string first_name,
+    std::string last_name,
+    std::string nickname,
+    std::string phone,
+    std::string secret)
 {
-	first_name = first_name_;
-	last_name = last_name_;
-	nickname = nickname_;
-	phone = phone_;
-	secret = secret_;
+	_first_name = first_name;
+	_last_name = last_name;
+	_nickname = nickname;
+	_phone = phone;
+	_secret = secret;
 }
 
 Contact::~Contact()
 {
 }
 
-void Contact::add_first_name(std::string first_name_)
+void Contact::print()
 {
+    //index, first name, last name and nickname
+    std::cout << _first_name << ", " << _last_name << std::endl;
 }
 
-void Contact::add_last_name(std::string last_name_)
+void Contact::print_all()
 {
-}
-
-void Contact::add_nickname(std::string nickname_)
-{
-}
-
-void Contact::add_phone(std::string phone_)
-{
-}
-
-void Contact::add_secret(std::string secret_)
-{
+    std::cout << "First name: " << _first_name << std::endl;
+    std::cout << "Last name: " << _last_name << std::endl;
+    std::cout << "Nickname: " << _nickname << std::endl;
+    std::cout << "Phone: " << _phone << std::endl;
+    std::cout << "Decret: " << _secret << std::endl;
 }

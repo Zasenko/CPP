@@ -12,29 +12,43 @@
 
 #include "main.hpp"
 
-class PhoneBook
-{
-	private:
-
-	public:
-		PhoneBook();
-		~PhoneBook();
-        void add();
-        void search();
-};
-
 PhoneBook::PhoneBook()
 {
+	_i = 0;
+	_is_full = false;
 }
 
 PhoneBook::~PhoneBook()
 {
 }
 
-void PhoneBook::add()
+void PhoneBook::add(Contact contact)
 {
+	contact.print();
+	_contacts[_i] = contact;
+	_i++;
+	if (_i == 8)
+	{
+		_i = 0;
+		_is_full = true;
+	}
 }
 
 void PhoneBook::search()
 {
+	int i = 0;
+
+	if (!_is_full && _i == 0)
+		return ;
+	while (i < (_is_full ? 8 : _i))
+	{
+		std::cout << i + 1 << ": ";
+		_contacts[i++].print();
+	}
+	std::cout << "Select user:\n> ";
+}
+
+int PhoneBook::get_i()
+{
+	return _i;
 }
