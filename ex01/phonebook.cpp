@@ -40,10 +40,16 @@ void PhoneBook::search()
 		std::cout << "Phonebook is empty!" << std::endl;
 		return;
 	}
-	
+
 	int count = _is_full ? 8 : _i;
 	std::cout << "-------------------------------------------" << std::endl;
-	std::cout << "     index|first name| last name|  nickname" << std::endl;
+	std::cout << std::setw(10) << std::right << "INDEX";
+	std::cout << "|";
+	std::cout << std::setw(10) << std::right << "FIRST NAME";
+	std::cout << "|";
+	std::cout << std::setw(10) << std::right << "LAST NAME";
+	std::cout << "|";
+	std::cout << std::setw(10) << std::right << "NICKNAME" << std::endl;
 	std::cout << "-------------------------------------------" << std::endl;
 
 	int i = 0;
@@ -53,17 +59,61 @@ void PhoneBook::search()
 		_contacts[i].print(i + 1);
 		i++;
 	}
-	std::cout << "Select user:\n> ";
 
-	std::string index;
-	std::getline(std::cin, index);
+	while (1)
+	{
+		std::cout << "Enter user index: ";
+		std::string index;
+		std::getline(std::cin, index);
+		index = trim(index);
+		if (index.empty())
+		{
+			continue;
+		}
+		if (!is_all_digit(index))
+		{
+			std::cout << "Index schould be a number!\n";
+			continue;
+		}
+		if (index.length() != 1)
+		{
+			std::cout << "Index is out of range!\n";
+			continue;
+		}
+		int num = index[0] - '0';
+		if (_is_full)
+		{
+			if (num > 0 && num < 9)
+			{
+				_contacts[num - 1].print_all();
+				break;
+			}
+			else
+			{
+				std::cout << "Number is out of range!\n";
+				continue;
+			}
+		}
+		else
+		{
+			if (num > 0 && (num - 1) < _i)
+			{
+				_contacts[num - 1].print_all();
+				break;
+			}
+			else
+			{
+				std::cout << "Number is out of range!\n";
+				continue;
+			}
+		}
+	}
 
 	// TODO:
 	// trim
 	// chech is empty?
 	// check CTRL+D?
 	// number 1-8;
-	_contacts[i - 1].print_all();
 }
 
 int PhoneBook::get_i()

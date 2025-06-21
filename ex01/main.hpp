@@ -14,6 +14,10 @@
 #define MAIN_HPP
 
 #include <iostream>
+#include <iomanip>
 #include "phonebook.hpp"
+
+std::string trim(std::string s);
+bool is_all_digit(std::string s);
 
 #endif

@@ -38,7 +38,8 @@ Contact::Contact(
 Contact::~Contact()
 {
 }
-std::string test(std::string s)
+
+std::string check_len_10(std::string s)
 {
     int size = s.length();
     if (size > 10)
@@ -47,16 +48,19 @@ std::string test(std::string s)
         new_s[9] = '.';
         return new_s;
     }
-    else {
-        int rest = 10 - size;
-        std::string empty_s(rest, ' ');
-        return empty_s + s;
-    }
+    else
+        return s;
 }
 
 void Contact::print(int i)
 {
-    std::cout << "         " << i << "|" << test(_first_name) << "|" << test(_last_name) << "|" << test(_nickname) << std::endl;
+    std::cout << std::setw(10) << std::right << i;
+    std::cout << "|";
+    std::cout << std::setw(10) << std::right << check_len_10(_first_name);
+    std::cout << "|";
+    std::cout << std::setw(10) << std::right << check_len_10(_last_name);
+    std::cout << "|";
+    std::cout << std::setw(10) << std::right << check_len_10(_nickname) << std::endl;
 }
 
 void Contact::print_all()

@@ -12,31 +12,73 @@
 
 #include "main.hpp"
 
+std::string trim(std::string s)
+{
+	size_t start = s.find_first_not_of(" \t");
+	size_t finish = s.find_last_not_of(" \t");
+	if (start == std::string::npos || finish == std::string::npos || start > finish)
+		return "";
+	return s.substr(start, finish - start + 1);
+}
+
+bool is_all_digit(std::string s)
+{
+	int size = s.length();
+	for (int i = 0; i < size; i++)
+	{
+		if (!std::isdigit(s[i]))
+			return false;	
+	}
+	return true;
+}
+
 void get_info(PhoneBook &phone_book)
 {
-	std::string first_name;
-	std::string last_name;
-	std::string nickname;
-	std::string phone;
-	std::string secret;
+	std::string first_name = "";
+	std::string last_name = "";
+	std::string nickname = "";
+	std::string phone = "";
+	std::string secret = "";
 
 	//TODO:
 	//trim
 	//chech is empty?
 	//check CTRL+D?
 
-	std::cout << "First name:\n> ";
-	std::getline(std::cin, first_name);
-	std::cout << "Last name:\n> ";
-	std::getline(std::cin, last_name);
-	std::cout << "Nickname:\n> ";
-	std::getline(std::cin, nickname);
-	std::cout << "Phone:\n> ";
-	std::getline(std::cin, phone);
-	std::cout << "Darkest secret:\n> ";
-	std::getline(std::cin, secret);
+	while (first_name.length() < 1)
+	{
+		std::cout << "First name: ";
+		std::getline(std::cin, first_name);
+		first_name = trim(first_name);
+	}
 
+	while (last_name.length() < 1)
+	{
+		std::cout << "Last name: ";
+		std::getline(std::cin, last_name);
+		last_name = trim(last_name);
+	}
 
+	while (nickname.length() < 1)
+	{
+		std::cout << "Nickname: ";
+		std::getline(std::cin, nickname);
+		nickname = trim(nickname);
+	}
+
+	while (phone.length() < 1)
+	{
+		std::cout << "Phone: ";
+		std::getline(std::cin, phone);
+		phone = trim(phone);
+	}
+
+	while (secret.length() < 1)
+	{
+		std::cout << "Darkest secret: ";
+		std::getline(std::cin, secret);
+		secret = trim(secret);
+	}
 	Contact new_contact = Contact(first_name, last_name, nickname, phone, secret);
 	phone_book.add(new_contact);
 }
@@ -45,14 +87,12 @@ int main(void)
 {
 	PhoneBook phone_book;
 	std::string command;
-	std::string prompt = "Enter one of three command: ADD, SEARCH or EXIT:\n> ";
+	std::string prompt = "*** Enter one of three command: ADD, SEARCH or EXIT: ***\n> ";
 
 	std::cout << prompt;
 	while(std::getline(std::cin, command))
 	{
-		std::cout << "command: [" << command << "]\n";
-		//trim
-		//chech is empty?
+		command = trim(command);
 		//check CTRL+D?
 		if (command == "ADD")
 		{
@@ -65,10 +105,6 @@ int main(void)
 		else if (command == "EXIT")
 		{
 			return 0;
-		}
-		else
-		{
-			//error
 		}
 		std::cout << prompt;
 	}
