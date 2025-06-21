@@ -31,8 +31,8 @@ class Contact
 			std::string secret
         );
 		~Contact();
-        void print();
-        void print_all();
+		void print(int i);
+		void print_all();
 };
 
 #endif

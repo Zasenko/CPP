@@ -38,11 +38,25 @@ Contact::Contact(
 Contact::~Contact()
 {
 }
-
-void Contact::print()
+std::string test(std::string s)
 {
-    //index, first name, last name and nickname
-    std::cout << _first_name << ", " << _last_name << std::endl;
+    int size = s.length();
+    if (size > 10)
+    {
+        std::string new_s = s.substr(0, 10);
+        new_s[9] = '.';
+        return new_s;
+    }
+    else {
+        int rest = 10 - size;
+        std::string empty_s(rest, ' ');
+        return empty_s + s;
+    }
+}
+
+void Contact::print(int i)
+{
+    std::cout << "         " << i << "|" << test(_first_name) << "|" << test(_last_name) << "|" << test(_nickname) << std::endl;
 }
 
 void Contact::print_all()
