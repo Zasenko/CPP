@@ -59,12 +59,17 @@ void PhoneBook::search()
 		_contacts[i].print(i + 1);
 		i++;
 	}
-
+	std::cout << "-------------------------------------------" << std::endl;
 	while (1)
 	{
 		std::cout << "Enter user index: ";
 		std::string index;
 		std::getline(std::cin, index);
+		if (std::cin.eof())
+		{
+			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
+			std::exit(0);
+		}
 		index = trim(index);
 		if (index.empty())
 		{
@@ -108,12 +113,6 @@ void PhoneBook::search()
 			}
 		}
 	}
-
-	// TODO:
-	// trim
-	// chech is empty?
-	// check CTRL+D?
-	// number 1-8;
 }
 
 int PhoneBook::get_i()
