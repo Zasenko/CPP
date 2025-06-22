@@ -12,7 +12,7 @@
 
 #include "main.hpp"
 
-std::string trim(std::string s)
+std::string trim(const std::string s)
 {
 	size_t start = s.find_first_not_of(" \t");
 	size_t finish = s.find_last_not_of(" \t");
@@ -21,7 +21,7 @@ std::string trim(std::string s)
 	return s.substr(start, finish - start + 1);
 }
 
-bool is_all_digit(std::string s)
+bool is_all_digit(const std::string s)
 {
 	int size = s.length();
 	for (int i = 0; i < size; i++)
@@ -32,6 +32,22 @@ bool is_all_digit(std::string s)
 	return true;
 }
 
+void get_line(std::string &s, const std::string text)
+{
+	while (s.length() < 1)
+	{
+		std::cout << text;
+		std::getline(std::cin, s);
+		if (std::cin.eof())
+		{
+			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
+			std::exit(0);
+		}
+		std::string d = trim(s);
+		s = d;
+	}
+}
+
 void get_info(PhoneBook &phone_book)
 {
 	std::string first_name = "";
@@ -40,62 +56,13 @@ void get_info(PhoneBook &phone_book)
 	std::string phone = "";
 	std::string secret = "";
 
-	while (first_name.length() < 1)
-	{
-		std::cout << "First name: ";
-		std::getline(std::cin, first_name);
-		if (std::cin.eof())
-		{
-			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
-		}
-		first_name = trim(first_name);
-	}
-	while (last_name.length() < 1)
-	{
-		std::cout << "Last name: ";
-		std::getline(std::cin, last_name);
-		if (std::cin.eof())
-		{
-			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
-		}
-		last_name = trim(last_name);
-	}
-	while (nickname.length() < 1)
-	{
-		std::cout << "Nickname: ";
-		std::getline(std::cin, nickname);
-		if (std::cin.eof())
-		{
-			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
-		}
-		nickname = trim(nickname);
-	}
-	while (phone.length() < 1)
-	{
-		std::cout << "Phone: ";
-		std::getline(std::cin, phone);
-		if (std::cin.eof())
-		{
-			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
-		}
-		phone = trim(phone);
-	}
-	while (secret.length() < 1)
-	{
-		std::cout << "Darkest secret: ";
-		std::getline(std::cin, secret);
-		if (std::cin.eof())
-		{
-			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
-		}
-		secret = trim(secret);
-	}
-	Contact new_contact = Contact(first_name, last_name, nickname, phone, secret);
+	get_line(first_name, "First name: ");
+	get_line(last_name, "Last name: ");
+	get_line(nickname, "Nickname: ");
+	get_line(phone, "Phone: ");
+	get_line(secret, "Secret: ");
+
+	Contact new_contact(first_name, last_name, nickname, phone, secret);
 	phone_book.add(new_contact);
 }
 
@@ -110,7 +77,7 @@ int main(void)
 		if (std::cin.eof())
 		{
 			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
+			return 0;
 		}
 		command = trim(command);
 		if (command == "ADD")

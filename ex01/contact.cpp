@@ -37,6 +37,7 @@ Contact::Contact(
 
 Contact::~Contact()
 {
+    std::cout << "Пока Contact" << _first_name <<"\n";
 }
 
 std::string check_len_10(std::string s)

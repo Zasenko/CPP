@@ -20,9 +20,10 @@ PhoneBook::PhoneBook()
 
 PhoneBook::~PhoneBook()
 {
+	std::cout << "Пока PhoneBook\n";
 }
 
-void PhoneBook::add(Contact contact)
+void PhoneBook::add(Contact &contact)
 {
 	_contacts[_i] = contact;
 	_i++;
@@ -40,7 +41,7 @@ void PhoneBook::search()
 		std::cout << "Phonebook is empty!" << std::endl;
 		return;
 	}
-
+	
 	int count = _is_full ? 8 : _i;
 	std::cout << "-------------------------------------------" << std::endl;
 	std::cout << std::setw(10) << std::right << "INDEX";
@@ -53,7 +54,6 @@ void PhoneBook::search()
 	std::cout << "-------------------------------------------" << std::endl;
 
 	int i = 0;
-
 	while (i < count)
 	{
 		_contacts[i].print(i + 1);
@@ -72,9 +72,7 @@ void PhoneBook::search()
 		}
 		index = trim(index);
 		if (index.empty())
-		{
 			continue;
-		}
 		if (!is_all_digit(index))
 		{
 			std::cout << "Index schould be a number!\n";
