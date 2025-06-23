@@ -13,7 +13,7 @@
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
-#include "contact.hpp"
+#include "Contact.hpp"
 
 class PhoneBook
 {
@@ -25,7 +25,7 @@ class PhoneBook
 		PhoneBook();
 		~PhoneBook();
 		void add(Contact &contact);
-		void search();
+		bool search();
 		int get_i();
 };
 

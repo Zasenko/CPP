@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.hpp"
+#include "PhoneBook.hpp"
 
 std::string trim(const std::string s)
 {
@@ -32,7 +33,7 @@ bool is_all_digit(const std::string s)
 	return true;
 }
 
-void get_line(std::string &s, const std::string text)
+bool get_text(std::string &s, const std::string text)
 {
 	while (s.length() < 1)
 	{
@@ -41,14 +42,37 @@ void get_line(std::string &s, const std::string text)
 		if (std::cin.eof())
 		{
 			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
+			return false;
 		}
-		std::string d = trim(s);
-		s = d;
+		s = trim(s);
 	}
+	return true;
 }
 
-void get_info(PhoneBook &phone_book)
+bool get_phone(std::string &s, const std::string text)
+{
+	while (s.length() < 1)
+	{
+		std::cout << text;
+		std::getline(std::cin, s);
+		if (std::cin.eof())
+		{
+			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
+			return false;
+		}
+		std::string trimmed = trim(s);
+		if (!is_all_digit(trimmed))
+		{
+			std::cout << "Wrong phone number (Example: 5555555)" << std::endl;
+			s = "";
+			continue;
+		}
+		s = trimmed;
+	}
+	return true;
+}
+
+bool get_info(PhoneBook &phone_book)
 {
 	std::string first_name = "";
 	std::string last_name = "";
@@ -56,14 +80,21 @@ void get_info(PhoneBook &phone_book)
 	std::string phone = "";
 	std::string secret = "";
 
-	get_line(first_name, "First name: ");
-	get_line(last_name, "Last name: ");
-	get_line(nickname, "Nickname: ");
-	get_line(phone, "Phone: ");
-	get_line(secret, "Secret: ");
+	if (!get_text(first_name, "First name > "))
+		return false;
+	if (!get_text(last_name, "Last name > "))
+		return false;
+	if (!get_text(nickname, "Nickname > "))
+		return false;
+	if (!get_phone(phone, "Phone > "))
+		return false;
+	if (!get_text(secret, "Secret > "))
+		return false;
 
 	Contact new_contact(first_name, last_name, nickname, phone, secret);
 	phone_book.add(new_contact);
+	std::cout << "Contact " << first_name << " " << last_name << " added!\n";
+	return true;
 }
 
 int main(void)
@@ -81,9 +112,15 @@ int main(void)
 		}
 		command = trim(command);
 		if (command == "ADD")
-			get_info(phone_book);
+		{
+			if (!get_info(phone_book))
+				return 0;
+		}
 		else if (command == "SEARCH")
-			phone_book.search();
+		{
+			if (!phone_book.search())
+				return 0;
+		}
 		else if (command == "EXIT")
 			return 0;
 		std::cout << prompt;

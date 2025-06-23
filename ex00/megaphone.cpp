@@ -12,7 +12,6 @@
 
 #include <iostream>
 #include <string>
-#include <algorithm>
 
 unsigned char make_up(unsigned char c)
 {
@@ -39,7 +38,10 @@ int main(int ac, char *av[])
             continue;
         }
         s = s.substr(start, finish - start + 1);
-        std::transform(s.begin(), s.end(), s.begin(), make_up);
+        for (size_t z = 0; z < s.length(); z++)
+        {
+            s[z] = make_up(s[z]);
+        }
         std::cout << s;
         if (i != ac - 1)
             std::cout << " ";

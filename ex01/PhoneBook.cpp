@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook()
 {
@@ -20,7 +21,6 @@ PhoneBook::PhoneBook()
 
 PhoneBook::~PhoneBook()
 {
-	std::cout << "Пока PhoneBook\n";
 }
 
 void PhoneBook::add(Contact &contact)
@@ -34,12 +34,12 @@ void PhoneBook::add(Contact &contact)
 	}
 }
 
-void PhoneBook::search()
+bool PhoneBook::search()
 {
 	if (!_is_full && _i == 0)
 	{
 		std::cout << "Phonebook is empty!" << std::endl;
-		return;
+		return true;
 	}
 	
 	int count = _is_full ? 8 : _i;
@@ -62,20 +62,20 @@ void PhoneBook::search()
 	std::cout << "-------------------------------------------" << std::endl;
 	while (1)
 	{
-		std::cout << "Enter user index: ";
+		std::cout << "Enter user index > ";
 		std::string index;
 		std::getline(std::cin, index);
 		if (std::cin.eof())
 		{
 			std::cout << "\nYou pressed Ctrl+D. Closing program now." << std::endl;
-			std::exit(0);
+			return false;
 		}
 		index = trim(index);
 		if (index.empty())
 			continue;
 		if (!is_all_digit(index))
 		{
-			std::cout << "Index schould be a number!\n";
+			std::cout << "Index schould be number (1 ... 8)!\n";
 			continue;
 		}
 		if (index.length() != 1)
@@ -93,7 +93,7 @@ void PhoneBook::search()
 			}
 			else
 			{
-				std::cout << "Number is out of range!\n";
+				std::cout << "Index is out of range!\n";
 				continue;
 			}
 		}
@@ -106,11 +106,12 @@ void PhoneBook::search()
 			}
 			else
 			{
-				std::cout << "Number is out of range!\n";
+				std::cout << "Index is out of range!\n";
 				continue;
 			}
 		}
 	}
+	return true;
 }
 
 int PhoneBook::get_i()

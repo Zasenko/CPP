@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.hpp"
+#include "Contact.hpp"
 
 Contact::Contact()
 {
@@ -37,7 +38,6 @@ Contact::Contact(
 
 Contact::~Contact()
 {
-    std::cout << "Пока Contact" << _first_name <<"\n";
 }
 
 std::string check_len_10(std::string s)
@@ -66,9 +66,14 @@ void Contact::print(int i)
 
 void Contact::print_all()
 {
-    std::cout << "First name: " << _first_name << std::endl;
-    std::cout << "Last name: " << _last_name << std::endl;
-    std::cout << "Nickname: " << _nickname << std::endl;
-    std::cout << "Phone: " << _phone << std::endl;
-    std::cout << "Decret: " << _secret << std::endl;
+    std::cout << std::setw(16) << std::left << "First name:";
+    std::cout << _first_name << std::endl;
+    std::cout << std::setw(16) << std::left << "Last name:";
+    std::cout << _last_name << std::endl;
+    std::cout << std::setw(16) << std::left << "Nickname:";
+    std::cout << _nickname << std::endl;
+    std::cout << std::setw(16) << std::left << "Phone:";
+    std::cout << _phone << std::endl;
+    std::cout << std::setw(16) << std::left << "Darkest secret:";
+    std::cout << _secret << std::endl;
 }
