@@ -13,7 +13,7 @@
 #include <iostream>
 #include <string>
 
-unsigned char make_up(unsigned char c)
+unsigned char make_upper(unsigned char c)
 {
     return std::toupper(c);
 }
@@ -40,7 +40,7 @@ int main(int ac, char *av[])
         s = s.substr(start, finish - start + 1);
         for (size_t z = 0; z < s.length(); z++)
         {
-            s[z] = make_up(s[z]);
+            s[z] = make_upper(s[z]);
         }
         std::cout << s;
         if (i != ac - 1)
